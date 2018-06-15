@@ -239,8 +239,6 @@ class OktaDirectoryConnector(object):
                 self.logger.warning('Skipping user %s: %s', login, e)
                 return None
 
-
-
         username, last_attribute_name = self.user_username_formatter.generate_value(record)
         username = username.strip() if username else None
         source_attributes['username'] = username
@@ -376,10 +374,10 @@ class OKTAValueFormatter(object):
         :type attribute_name: unicode
         """
         if hasattr(record.profile, attribute_name):
-            attribute_values = getattr(record.profile,attribute_name)
-            if attribute_values:
+            attribute_value = getattr(record.profile,attribute_name)
+            if attribute_value:
                 try:
-                    return attribute_values.decode(cls.encoding)
+                    return six.text_type(attribute_value)
                 except UnicodeError as e:
                     raise AssertionException("Encoding error in value of attribute '%s': %s" % (attribute_name, e))
         return None
