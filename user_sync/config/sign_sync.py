@@ -24,6 +24,7 @@ def config_schema() -> Schema:
         'user_sync': {
             'create_users': bool,
             'sign_only_limit': Or(int, Regex(r'^\d+%$')),
+            'deactivate_sign_only_users': bool,
         },
         'user_management': [{
             'directory_group': Or(None, And(str, len)),
@@ -154,6 +155,7 @@ class SignConfigLoader(ConfigLoader):
         user_sync = self.main_config.get_dict_config('user_sync')
         options['create_users'] = user_sync.get_bool('create_users')
         options['sign_only_limit'] = user_sync.get_value('sign_only_limit', (int, str))
+        options['deactivate_sign_only_users'] = user_sync.get_bool('deactivate_sign_only_users')
         return options
 
     def check_unused_config_keys(self):

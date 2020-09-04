@@ -11,6 +11,7 @@ identity_source:
 user_sync:
   create_users: True
   sign_only_limit: 100
+  deactivate_sign_only_users: True
  
 # User management group/role mappings
 user_management:

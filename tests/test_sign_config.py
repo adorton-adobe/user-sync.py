@@ -169,7 +169,7 @@ def test_logging_config(sign_config_file):
 
 
 def test_engine_options(sign_config_file, modify_sign_config, tmp_sign_connector_config, tmp_config_files):
-    sign_config_file = modify_sign_config(['user_sync'], {'create_users': False, 'sign_only_limit': 1000})
+    sign_config_file = modify_sign_config(['user_sync'], {'create_users': False, 'sign_only_limit': 1000, 'deactivate_sign_only_users': False})
     args = {'config_filename': sign_config_file}
     config = SignConfigLoader(args)
     options = config.get_engine_options()
@@ -183,4 +183,5 @@ def test_engine_options(sign_config_file, modify_sign_config, tmp_sign_connector
     assert not (set(SignSyncEngine.default_options.keys()) | set(config.invocation_options.keys())) - set(options.keys())
     assert options['create_users'] == False
     assert options['sign_only_limit'] == 1000
+    assert options['deactivate_sign_only_users'] == False
     
